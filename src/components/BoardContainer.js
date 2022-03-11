@@ -4,7 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import Task from './Task';
+import TaskList from './TaskList';
 
 function BoardContainer(props) {
 
@@ -27,7 +27,7 @@ function BoardContainer(props) {
                 <Button size="small" onClick={() => handleAddTask(column)}>ADD TASK</Button>
               </CardActions>
             </Card>
-            <Task/>
+            <TaskList/>
           </div>
         )
       })}
@@ -47,9 +47,10 @@ const boardColumn = {
   margin: 150,
   borderWidth: 2,
   borderRadius: 5,
-  borderColor: 'grey',
+  borderColor: 'lightgrey',
   borderStyle: 'solid',
   width: '100%',
+  marginTop: 30,
 }
 
 export default BoardContainer;

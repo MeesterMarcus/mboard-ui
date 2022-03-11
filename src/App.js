@@ -53,7 +53,7 @@ function App() {
       </AppBar>
     </Box>
       <div style={columnInputContainer}>
-        <TextField id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Outlined" variant="outlined" />
+        <TextField id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
         <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
 
@@ -66,12 +66,8 @@ function App() {
 
 const buttonContainer = {
   marginLeft: 8,
+  padding: 15,
 }
-
-const addColumnContainer = {
-
-}
-
 
 const columnInputContainer = {
   display: 'flex',
