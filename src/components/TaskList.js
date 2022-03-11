@@ -40,6 +40,7 @@ const taskContainer = {
   backgroundColor: 'white',
   cursor: 'pointer',
   margin: 5,
+  padding: 15,
 }
 
 
