@@ -2,14 +2,25 @@ import '../App.css';
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
+import { CardHeader } from '@mui/material';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import TaskList from './TaskList';
+import { v4 as uuidv4 } from 'uuid';
+import { useState } from 'react';
+
 
 function BoardContainer(props) {
 
+  const [taskCount, setTaskCount] = useState(0);
+
   const handleAddTask = (column) => {
     console.log("creating a new task for column: ", column.name);
+    console.log(column);
+    column.tasks.push({
+      id: uuidv4(),
+      title: "test"
+    });
+    setTaskCount(prev => prev + 1);
   }
 
   return (
@@ -18,16 +29,16 @@ function BoardContainer(props) {
         return (
           <div key={index} style={boardColumn}>
             <Card sx={{ minWidth: 275 }}>
-              <CardContent>
-                <Typography variant="h5" component="div">
-                  {column.name}
-                </Typography>
+              <CardHeader style={cardHeader}
+                title={column.name}
+              />
+              <CardContent style={cardContent}>
+                <TaskList tasks={column.tasks}/>
               </CardContent>
-              <CardActions style={{display: 'flex', justifyContent:'center'}}>
+              <CardActions style={cardActions}>
                 <Button size="small" onClick={() => handleAddTask(column)}>ADD TASK</Button>
               </CardActions>
             </Card>
-            <TaskList/>
           </div>
         )
       })}
@@ -42,11 +53,26 @@ const boardContainer = {
   justifyContent: "flex-start",
 }
 
+const cardHeader = {
+  backgroundColor: "#FFB329",
+  color: "white",
+}
+
+const cardContent = {
+  backgroundColor: '#EBECF0',
+}
+
+const cardActions = {
+  display: 'flex', 
+  justifyContent: 'center',
+}
+
 const boardColumn = {
   flexDirection: "column",
   margin: 150,
   borderWidth: 2,
   borderRadius: 5,
+  height: '100%',
   borderColor: 'lightgrey',
   borderStyle: 'solid',
   width: '100%',

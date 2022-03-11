@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
-// import MenuIcon from '@mui/icons-material/Menu';
 import BoardContainer from './components/BoardContainer';
 import { v4 as uuidv4 } from 'uuid';
 
@@ -20,7 +19,8 @@ function App() {
   const addColumn = () => {
     const newColumn = {
       id: uuidv4(), 
-      name: newColumnName
+      name: newColumnName,
+      tasks: [],
     };
     setColumns(prev => [...prev, newColumn]);
     resetForm();
