@@ -1,7 +1,13 @@
 import './App.css';
 import { useState } from 'react';
-import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+// import MenuIcon from '@mui/icons-material/Menu';
 import BoardContainer from './components/BoardContainer';
 
 
@@ -11,7 +17,7 @@ function App() {
   const [newColumnName, setNewColumnName] = useState('');
 
   const addColumn = () => {
-    const newColumn = {name: newColumnName};
+    const newColumn = { name: newColumnName };
     setColumns(prev => [...prev, newColumn]);
     resetForm();
   };
@@ -27,14 +33,52 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        Mboards {newColumnName}
+      <Box sx={{ flexGrow: 1 }}>
+      <AppBar position="static">
+        <Toolbar>
+          <IconButton
+            size="large"
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            sx={{ mr: 2 }}
+          >
+            {/* <MenuIcon /> */}
+          </IconButton>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            MBoards
+          </Typography>
+          <Button color="inherit">Login</Button>
+        </Toolbar>
+      </AppBar>
+    </Box>
+      <div style={columnInputContainer}>
+        <TextField id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Outlined" variant="outlined" />
+        <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
-      <TextField id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Outlined" variant="outlined" />
-      <Button variant="contained" onClick={addColumn}>Add Column</Button>
+
       <BoardContainer columns={columns} />
     </div>
   );
+}
+
+// Styles
+
+const buttonContainer = {
+  marginLeft: 8,
+}
+
+const addColumnContainer = {
+
+}
+
+
+const columnInputContainer = {
+  display: 'flex',
+  flexDirection: 'row',
+  justifyContent: 'center',
+  alignItems: 'center',
+  marginTop: 25,
 }
 
 export default App;
