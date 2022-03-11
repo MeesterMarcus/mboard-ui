@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -9,6 +9,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 // import MenuIcon from '@mui/icons-material/Menu';
 import BoardContainer from './components/BoardContainer';
+import { v4 as uuidv4 } from 'uuid';
 
 
 function App() {
@@ -17,7 +18,10 @@ function App() {
   const [newColumnName, setNewColumnName] = useState('');
 
   const addColumn = () => {
-    const newColumn = { name: newColumnName };
+    const newColumn = {
+      id: uuidv4(), 
+      name: newColumnName
+    };
     setColumns(prev => [...prev, newColumn]);
     resetForm();
   };
@@ -31,27 +35,33 @@ function App() {
     setNewColumnName(text);
   }
 
+  useEffect(()=> {
+    if (columns.length > 0) {
+      console.log(columns);
+    }
+  }, [columns]);
+
   return (
     <div className="App">
       <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            {/* <MenuIcon /> */}
-          </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            MBoards
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </Box>
+        <AppBar position="static">
+          <Toolbar>
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              {/* <MenuIcon /> */}
+            </IconButton>
+            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              MBoards
+            </Typography>
+            <Button color="inherit">Login</Button>
+          </Toolbar>
+        </AppBar>
+      </Box>
       <div style={columnInputContainer}>
         <TextField id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
         <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
