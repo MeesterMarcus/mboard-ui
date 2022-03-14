@@ -24,7 +24,7 @@ function TaskList(props) {
     column.tasks.push({
       id: uuidv4(),
       title: newTaskTitle,
-      description: 'sample description',
+      description: '',
       severity: '',
       client: '',
     });
@@ -39,12 +39,12 @@ function TaskList(props) {
 
   const resetForm = () => {
     setNewTaskTitle('');
-  }
+  };
 
   const handleText = event => {
     const text = event.target.value
     setNewTaskTitle(text);
-  }
+  };
 
   const handleDescriptionChange = event => {
     const text = event.target.value
@@ -52,7 +52,7 @@ function TaskList(props) {
       ...prevTask,
       description: text
     }));
-  }
+  };
 
   useEffect(() => {
 
@@ -105,7 +105,7 @@ function TaskList(props) {
             </div>
           </Typography>
           <div style={saveTaskContainer}>
-            <Button variant="contained" size="small" onClick={() => console.log('saving task...')}>SAVE</Button>
+            <Button variant="contained" size="small" onClick={() => props.saveTask({...selectedTask})}>SAVE</Button>
           </div>
         </Box>
       </Modal>

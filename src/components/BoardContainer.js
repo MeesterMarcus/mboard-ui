@@ -14,6 +14,10 @@ function BoardContainer(props) {
     }
   }
 
+  const saveTask = (task) => {
+    //we need to do a query to save task updates to db
+  }
+
   return (
     <div style={boardContainer}>
       {props.board?.columns?.map(function (column, index) {
@@ -25,7 +29,7 @@ function BoardContainer(props) {
                 title={toUpper(column.name)}
               />
               <CardContent style={cardContent}>
-                <TaskList board={props.board} column={column}/>
+                <TaskList saveTask={saveTask} board={props.board} column={column}/>
               </CardContent>
             </Card>
           </div>
