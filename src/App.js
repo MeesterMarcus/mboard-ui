@@ -13,12 +13,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 function App() {
 
+  const [board, setBoard] = useState({});
   const [columns, setColumns] = useState([]);
   const [newColumnName, setNewColumnName] = useState('');
 
   const addColumn = () => {
     const newColumn = {
-      id: uuidv4(), 
+      id: uuidv4(),
       name: newColumnName,
       tasks: [],
     };
@@ -35,11 +36,32 @@ function App() {
     setNewColumnName(text);
   }
 
-  useEffect(()=> {
+  useEffect(() => {
+    console.log("initializing board");
+    initBoard();
+  }, []);
+
+  const initBoard = () => {
+    setBoard({
+      id: uuidv4(),
+      columns: [],
+    })
+  }
+
+  useEffect(() => {
     if (columns.length > 0) {
-      console.log(columns);
+      setBoard(prevBoard => ({
+        ...prevBoard,
+        columns: columns
+      }))
     }
   }, [columns]);
+
+  useEffect(() => {
+    if (board) {
+      console.log(board);
+    }
+  }, [board]);
 
   return (
     <div className="App">
@@ -67,7 +89,7 @@ function App() {
         <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
 
-      <BoardContainer columns={columns} />
+      <BoardContainer board={board}/>
     </div>
   );
 }
