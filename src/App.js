@@ -80,12 +80,12 @@ function App() {
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
               MBoards
             </Typography>
-            <Button color="inherit">Login</Button>
+            <Button color="inherit" onClick={() => console.log('Login clicked')}>Login</Button>
           </Toolbar>
         </AppBar>
       </Box>
       <div style={columnInputContainer}>
-        <TextField id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
+        <TextField sx={{input: {color: 'white'}}} id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
         <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
 

@@ -7,6 +7,13 @@ import TaskList from './TaskList';
 
 function BoardContainer(props) {
 
+  const toUpper = (text) => {
+    if (text) {
+      console.log(text);
+      return text.toString().toUpperCase();
+    }
+  }
+
   return (
     <div style={boardContainer}>
       {props.board?.columns?.map(function (column, index) {
@@ -15,7 +22,7 @@ function BoardContainer(props) {
             <Card sx={{ minWidth: 275 }}>
               <CardHeader style={cardHeader}
               titleTypographyProps={{variant:'h6' }}
-                title={column.name}
+                title={toUpper(column.name)}
               />
               <CardContent style={cardContent}>
                 <TaskList board={props.board} column={column}/>
