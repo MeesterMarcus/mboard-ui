@@ -1,16 +1,18 @@
 //Third-party
 import { useEffect } from 'react';
 import { CSSProperties } from "react";
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Modal from '@mui/material/Modal';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 import React from 'react';
-import { SxProps } from '@mui/material';
+import { 
+  Box, 
+  Button, 
+  Modal, 
+  SxProps, 
+  TextareaAutosize, 
+  TextField, 
+  Typography 
+} from '@mui/material';
 
 //First-party
 import '../App.css';

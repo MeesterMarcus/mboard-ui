@@ -1,7 +1,11 @@
 //Third-party
 import React from 'react';
 import { CSSProperties } from "react";
-import { Card, CardHeader, CardContent } from '@mui/material';
+import { 
+  Card, 
+  CardHeader, 
+  CardContent 
+} from '@mui/material';
 
 //First-party
 import '../App.css';

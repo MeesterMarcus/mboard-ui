@@ -2,15 +2,18 @@
 import './App.css';
 import { CSSProperties } from "react";
 import React, { useEffect, useState } from 'react';
-import TextField from '@mui/material/TextField';
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 import BoardContainer from './components/BoardContainer';
 import { v4 as uuidv4 } from 'uuid';
-import { Box } from '@mui/material';
+import { 
+  Box, 
+  AppBar, 
+  Toolbar, 
+  IconButton, 
+  Typography, 
+  Button, 
+  TextField } 
+  from '@mui/material';
+
 
 //First-party
 import { IBoard, IBoardColumn } from './models/board.models';
