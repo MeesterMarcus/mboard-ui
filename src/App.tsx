@@ -1,14 +1,16 @@
 import './App.css';
-import { useEffect, useState } from 'react';
+import { CSSProperties } from "react";
+
+import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import BoardContainer from './components/BoardContainer';
 import { v4 as uuidv4 } from 'uuid';
+import { Box } from '@mui/material';
 
 
 function App() {
@@ -88,7 +90,6 @@ function App() {
         <TextField sx={{input: {color: 'white'}}} id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
         <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
-
       <BoardContainer board={board}/>
     </div>
   );
@@ -96,12 +97,12 @@ function App() {
 
 // Styles
 
-const buttonContainer = {
+const buttonContainer: CSSProperties = {
   marginLeft: 8,
   padding: 15,
 }
 
-const columnInputContainer = {
+const columnInputContainer: CSSProperties = {
   display: 'flex',
   flexDirection: 'row',
   justifyContent: 'center',

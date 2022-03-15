@@ -1,7 +1,7 @@
 import '../App.css';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import { CardHeader } from '@mui/material';
+import React from 'react';
+import { CSSProperties } from "react";
+import { Card, CardHeader, CardContent } from '@mui/material';
 import TaskList from './TaskList';
 
 
@@ -40,25 +40,20 @@ function BoardContainer(props) {
 }
 
 // styles
-const boardContainer = {
+const boardContainer: CSSProperties = {
   display: 'flex',
 }
 
-const cardHeader = {
+const cardHeader: CSSProperties = {
   backgroundColor: "#FFB329",
   color: "white",
 }
 
-const cardContent = {
+const cardContent: CSSProperties = {
   backgroundColor: '#EBECF0',
 }
 
-// const cardActions = {
-//   display: 'flex', 
-//   justifyContent: 'center',
-// }
-
-const boardColumn = {
+const boardColumn: CSSProperties = {
   flexDirection: "column",
   margin: 50,
   minWidth: 350,

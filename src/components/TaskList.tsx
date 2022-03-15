@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { CSSProperties } from "react";
 import '../App.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
@@ -8,12 +9,21 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
+import React from 'react';
+import { SxProps } from '@mui/material';
 
+interface TaskInterface {
+  id: number,
+  title: string,
+  description: string,
+  severity: string,
+  client: string
+}
 
 
 function TaskList(props) {
   const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [selectedTask, setSelectedTask] = useState({});
+  const [selectedTask, setSelectedTask] = useState({} as TaskInterface);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -115,12 +125,12 @@ function TaskList(props) {
 }
 
 // styles
-const taskListContainer = {
+const taskListContainer: CSSProperties = {
   margin: 15,
   backgroundColor: '#EBECF0',
 }
 
-const taskContainer = {
+const taskContainer: CSSProperties = {
   textAlign: 'left',
   borderWidth: 2,
   borderRadius: 5,
@@ -132,21 +142,21 @@ const taskContainer = {
   padding: 15,
 }
 
-const taskInputContainer = {
+const taskInputContainer: CSSProperties = {
   marginTop: 20,
 }
 
-const addTaskContainer = {
+const addTaskContainer: CSSProperties = {
   marginTop: 25,
 }
 
-const saveTaskContainer = {
+const saveTaskContainer: CSSProperties = {
   marginTop: 25,
   display: 'flex',
   justifyContent: 'flex-end',
 }
 
-const modalStyle = {
+const modalStyle: SxProps = {
   position: 'absolute',
   top: '50%',
   left: '50%',
