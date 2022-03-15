@@ -1,11 +1,18 @@
-import '../App.css';
+//Third-party
 import React from 'react';
 import { CSSProperties } from "react";
 import { Card, CardHeader, CardContent } from '@mui/material';
+
+//First-party
+import '../App.css';
 import TaskList from './TaskList';
+import { IBoard } from '../models/board.models';
 
+interface IBoardContainerProps {
+  board: IBoard
+}
 
-function BoardContainer(props) {
+function BoardContainer(props: IBoardContainerProps) {
 
   const toUpper = (text) => {
     if (text) {

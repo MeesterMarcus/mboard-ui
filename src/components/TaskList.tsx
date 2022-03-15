@@ -1,6 +1,6 @@
+//Third-party
 import { useEffect } from 'react';
 import { CSSProperties } from "react";
-import '../App.css';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import { v4 as uuidv4 } from 'uuid';
@@ -12,18 +12,19 @@ import TextareaAutosize from '@mui/material/TextareaAutosize';
 import React from 'react';
 import { SxProps } from '@mui/material';
 
-interface TaskInterface {
-  id: number,
-  title: string,
-  description: string,
-  severity: string,
-  client: string
+//First-party
+import '../App.css';
+import { IBoard, IBoardColumn, ITaskInterface } from '../models/board.models';
+
+interface ITaskListProps {
+  board: IBoard;
+  column: IBoardColumn;
+  saveTask: Function;
 }
 
-
-function TaskList(props) {
+function TaskList(props: ITaskListProps) {
   const [newTaskTitle, setNewTaskTitle] = useState('');
-  const [selectedTask, setSelectedTask] = useState({} as TaskInterface);
+  const [selectedTask, setSelectedTask] = useState({} as ITaskInterface);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -66,7 +67,7 @@ function TaskList(props) {
 
   useEffect(() => {
 
-  }, [props.tasks, props.column])
+  }, [props.column])
 
 
   return (

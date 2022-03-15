@@ -1,6 +1,6 @@
+//Third-party
 import './App.css';
 import { CSSProperties } from "react";
-
 import React, { useEffect, useState } from 'react';
 import TextField from '@mui/material/TextField';
 import AppBar from '@mui/material/AppBar';
@@ -12,15 +12,17 @@ import BoardContainer from './components/BoardContainer';
 import { v4 as uuidv4 } from 'uuid';
 import { Box } from '@mui/material';
 
+//First-party
+import { IBoard, IBoardColumn } from './models/board.models';
 
 function App() {
 
-  const [board, setBoard] = useState({});
-  const [columns, setColumns] = useState([]);
+  const [board, setBoard] = useState({} as IBoard);
+  const [columns, setColumns] = useState([] as Array<IBoardColumn>);
   const [newColumnName, setNewColumnName] = useState('');
 
   const addColumn = () => {
-    const newColumn = {
+    const newColumn: IBoardColumn = {
       id: uuidv4(),
       name: newColumnName,
       tasks: [],
