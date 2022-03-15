@@ -50,12 +50,15 @@ function App() {
   }, []);
 
   const initBoard = async () => {
-    const data = await BoardService.test();
-    console.log(data);
+    const board = await BoardService.createBoard({
+      id: uuidv4(),
+      columns: [],
+    });
+    console.log(board);
     setBoard({
       id: uuidv4(),
       columns: [],
-    })
+    });
   }
 
   useEffect(() => {
