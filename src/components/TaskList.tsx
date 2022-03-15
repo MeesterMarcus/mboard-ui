@@ -85,7 +85,7 @@ function TaskList(props: ITaskListProps) {
         <TextField style={{ width: 275 }} id="outlined-basic" value={newTaskTitle} onChange={e => handleText(e)} label="Enter Task Title" variant="outlined" />
       </div>
       <div style={addTaskContainer}>
-        <Button variant="contained" size="small" onClick={() => handleAddTask(props.column)}>ADD TASK</Button>
+        <Button disabled={!newTaskTitle} variant="contained" size="small" onClick={() => handleAddTask(props.column)}>ADD TASK</Button>
       </div>
 
       <Modal

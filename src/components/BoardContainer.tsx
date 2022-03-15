@@ -20,7 +20,6 @@ function BoardContainer(props: IBoardContainerProps) {
 
   const toUpper = (text) => {
     if (text) {
-      console.log(text);
       return text.toString().toUpperCase();
     }
   }

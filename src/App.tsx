@@ -17,6 +17,7 @@ import {
 
 //First-party
 import { IBoard, IBoardColumn } from './models/board.models';
+import BoardService from './services/BoardService';
 
 function App() {
 
@@ -48,7 +49,9 @@ function App() {
     initBoard();
   }, []);
 
-  const initBoard = () => {
+  const initBoard = async () => {
+    const data = await BoardService.test();
+    console.log(data);
     setBoard({
       id: uuidv4(),
       columns: [],
@@ -93,7 +96,7 @@ function App() {
       </Box>
       <div style={columnInputContainer}>
         <TextField sx={{input: {color: 'white'}}} id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
-        <Button style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
+        <Button disabled={!newColumnName} style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
       <BoardContainer board={board}/>
     </div>
