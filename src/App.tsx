@@ -87,7 +87,7 @@ function App() {
               {/* <MenuIcon /> */}
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MBoards {board?.boardId}
+              MBoards
             </Typography>
             <Button color="inherit" onClick={() => console.log('Login clicked')}>Login</Button>
           </Toolbar>
