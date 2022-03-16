@@ -3,7 +3,7 @@ import { IBoard } from "../models/board.models";
 const API_URL = process.env.REACT_APP_API_URL;
 
 enum ENDPOINT {
-    NEW_BOARD = 'board'
+    BOARD = 'board',
 };
 
 class BoardService {
@@ -31,7 +31,7 @@ class BoardService {
         let data;
         try {
             const result = await fetch(
-                `${API_URL}/${ENDPOINT.NEW_BOARD}`,
+                `${API_URL}/${ENDPOINT.BOARD}`,
                 {
                     method: "POST",
                     headers: {
@@ -39,6 +39,25 @@ class BoardService {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(board),
+                }
+            );
+            data = await result.json();
+        } catch (error: any) {
+            console.log(error);
+        }
+        return data;
+    }
+
+    public static async getBoard(boardId: string) {
+        let data;
+        try {
+            const result = await fetch(`${API_URL}/${ENDPOINT.BOARD}?boardId=${boardId}`,
+                {
+                    method: "GET",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
                 }
             );
             data = await result.json();

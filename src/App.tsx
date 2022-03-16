@@ -50,15 +50,13 @@ function App() {
   }, []);
 
   const initBoard = async () => {
-    const board = await BoardService.createBoard({
-      id: uuidv4(),
-      columns: [],
-    });
-    console.log(board);
-    setBoard({
-      id: uuidv4(),
-      columns: [],
-    });
+    // const board = await BoardService.createBoard({
+    //   id: uuidv4(),
+    //   columns: [],
+    // });
+    const board = await BoardService.getBoard('2e1566ac-0376-4d1e-bde6-53610308ce88');
+    console.log('fetched board:', board);
+    setBoard(board.data);
   }
 
   useEffect(() => {
