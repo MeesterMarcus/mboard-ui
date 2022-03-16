@@ -52,9 +52,15 @@ function App() {
     initBoard();
   }, []);
 
+  const boardChanged = async () => {
+    console.log('board changed!!!');
+    const updatedBoard = await getBoard();
+    setBoard(updatedBoard);
+  }
+
   const initBoard = async () => {
     // const board = await BoardService.createBoard({
-    //   id: uuidv4(),
+    //   boardId: uuidv4(),
     //   columns: [],
     // });
     const board = await getBoard();
@@ -62,7 +68,7 @@ function App() {
   }
 
   const getBoard = async () => {
-    const result = await BoardService.getBoard('2e1566ac-0376-4d1e-bde6-53610308ce88');
+    const result = await BoardService.getBoard('ad4c4f96-8f58-488b-bf0a-f038e05cc3f5');
     return result.data;
   }
 
@@ -91,7 +97,7 @@ function App() {
         <TextField sx={{input: {color: 'white'}}} id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
         <Button disabled={!newColumnName} style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
       </div>
-      <BoardContainer board={board}/>
+      <BoardContainer board={board} boardChanged={boardChanged}/>
     </div>
   );
 }

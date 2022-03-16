@@ -1,10 +1,11 @@
-import { IBoard, IBoardColumn } from "../models/board.models";
+import { IBoard, IBoardColumn, ITaskInterface } from "../models/board.models";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 enum ENDPOINT {
     BOARD = 'board',
     BOARD_COLUMNS = 'board/columns',
+    BOARD_TASKS = 'board/tasks',
 };
 
 class BoardService {
@@ -63,6 +64,30 @@ class BoardService {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({boardId: boardId, column: column}),
+                }
+            );
+            data = await result.json();
+        } catch (error: any) {
+            console.log(error);
+        }
+        return data;
+    }
+
+    public static async insertTask(boardId: string, columnId: string, task: ITaskInterface) {
+        console.log('boardId: ', boardId);
+        console.log('columnId: ', columnId);
+        console.log('task:', task);
+        let data;
+        try {
+            const result = await fetch(
+                `${API_URL}/${ENDPOINT.BOARD_TASKS}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({boardId: boardId, columnId: columnId, task: task}),
                 }
             );
             data = await result.json();

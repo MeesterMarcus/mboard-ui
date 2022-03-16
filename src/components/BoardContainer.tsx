@@ -14,6 +14,7 @@ import { IBoard } from '../models/board.models';
 
 interface IBoardContainerProps {
   board: IBoard
+  boardChanged: Function,
 }
 
 function BoardContainer(props: IBoardContainerProps) {
@@ -39,7 +40,7 @@ function BoardContainer(props: IBoardContainerProps) {
                 title={toUpper(column.name)}
               />
               <CardContent style={cardContent}>
-                <TaskList saveTask={saveTask} board={props.board} column={column}/>
+                <TaskList saveTask={saveTask} board={props.board} column={column} boardChanged={props.boardChanged}/>
               </CardContent>
             </Card>
           </div>

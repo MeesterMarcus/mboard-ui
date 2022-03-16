@@ -17,11 +17,13 @@ import {
 //First-party
 import '../App.css';
 import { IBoard, IBoardColumn, ITaskInterface } from '../models/board.models';
+import BoardService from '../services/BoardService';
 
 interface ITaskListProps {
   board: IBoard;
   column: IBoardColumn;
   saveTask: Function;
+  boardChanged: Function;
 }
 
 function TaskList(props: ITaskListProps) {
@@ -34,13 +36,15 @@ function TaskList(props: ITaskListProps) {
 
   const handleAddTask = (column) => {
     console.log(column);
-    column.tasks.push({
+    const newTask = {
       id: uuidv4(),
       title: newTaskTitle,
       description: '',
       severity: '',
       client: '',
-    });
+    };
+    BoardService.insertTask(props.board.boardId, column.id, newTask);
+    props.boardChanged();
     resetForm();
   }
 
@@ -99,8 +103,9 @@ function TaskList(props: ITaskListProps) {
             {selectedTask.title}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <div>Description:</div>
-            <div>
+            Description:
+          </Typography>
+          <div>
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={10}
@@ -110,13 +115,12 @@ function TaskList(props: ITaskListProps) {
                 style={{ width: 350 }}
               />
             </div>
-          </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            <div>Client:</div>
-            <div>
+            Client:
+          </Typography>
+          <div>
               {selectedTask.client}
             </div>
-          </Typography>
           <div style={saveTaskContainer}>
             <Button variant="contained" size="small" onClick={() => props.saveTask({...selectedTask})}>SAVE</Button>
           </div>
