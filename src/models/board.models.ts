@@ -1,5 +1,5 @@
 export interface IBoard {
-    id: string;
+    boardId: string;
     columns: Array<IBoardColumn>;
 }
 

@@ -14,7 +14,6 @@ import {
   TextField } 
   from '@mui/material';
 
-
 //First-party
 import { IBoard, IBoardColumn } from './models/board.models';
 import BoardService from './services/BoardService';
@@ -22,7 +21,6 @@ import BoardService from './services/BoardService';
 function App() {
 
   const [board, setBoard] = useState({} as IBoard);
-  const [columns, setColumns] = useState([] as Array<IBoardColumn>);
   const [newColumnName, setNewColumnName] = useState('');
 
   const addColumn = () => {
@@ -31,7 +29,7 @@ function App() {
       name: newColumnName,
       tasks: [],
     };
-    setColumns(prev => [...prev, newColumn]);
+    insertNewColIntoDb(newColumn);
     resetForm();
   };
 
@@ -44,8 +42,13 @@ function App() {
     setNewColumnName(text);
   }
 
+  const insertNewColIntoDb = async (column: IBoardColumn) => {
+    await BoardService.insertColumn(board.boardId, column);
+    const updatedBoard = await getBoard();
+    setBoard(updatedBoard);
+  };
+
   useEffect(() => {
-    console.log("initializing board");
     initBoard();
   }, []);
 
@@ -54,25 +57,14 @@ function App() {
     //   id: uuidv4(),
     //   columns: [],
     // });
-    const board = await BoardService.getBoard('2e1566ac-0376-4d1e-bde6-53610308ce88');
-    console.log('fetched board:', board);
-    setBoard(board.data);
+    const board = await getBoard();
+    setBoard(board);
   }
 
-  useEffect(() => {
-    if (columns.length > 0) {
-      setBoard(prevBoard => ({
-        ...prevBoard,
-        columns: columns
-      }))
-    }
-  }, [columns]);
-
-  useEffect(() => {
-    if (board) {
-      console.log(board);
-    }
-  }, [board]);
+  const getBoard = async () => {
+    const result = await BoardService.getBoard('2e1566ac-0376-4d1e-bde6-53610308ce88');
+    return result.data;
+  }
 
   return (
     <div className="App">
@@ -89,7 +81,7 @@ function App() {
               {/* <MenuIcon /> */}
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MBoards
+              MBoards {board?.boardId}
             </Typography>
             <Button color="inherit" onClick={() => console.log('Login clicked')}>Login</Button>
           </Toolbar>

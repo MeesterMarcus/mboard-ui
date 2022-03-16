@@ -1,9 +1,10 @@
-import { IBoard } from "../models/board.models";
+import { IBoard, IBoardColumn } from "../models/board.models";
 
 const API_URL = process.env.REACT_APP_API_URL;
 
 enum ENDPOINT {
     BOARD = 'board',
+    BOARD_COLUMNS = 'board/columns',
 };
 
 class BoardService {
@@ -39,6 +40,29 @@ class BoardService {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(board),
+                }
+            );
+            data = await result.json();
+        } catch (error: any) {
+            console.log(error);
+        }
+        return data;
+    }
+
+    public static async insertColumn(boardId: string, column: IBoardColumn) {
+        console.log('boardId: ', boardId);
+        console.log('boardColumn: ', column);
+        let data;
+        try {
+            const result = await fetch(
+                `${API_URL}/${ENDPOINT.BOARD_COLUMNS}`,
+                {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({boardId: boardId, column: column}),
                 }
             );
             data = await result.json();
