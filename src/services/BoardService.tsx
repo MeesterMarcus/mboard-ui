@@ -97,6 +97,28 @@ class BoardService {
         return data;
     }
 
+    public static async updateTask(task: ITaskInterface) {
+        console.log('task:', task);
+        let data;
+        try {
+            const result = await fetch(
+                `${API_URL}/${ENDPOINT.BOARD_TASKS}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({task: task}),
+                }
+            );
+            data = await result.json();
+        } catch (error: any) {
+            console.log(error);
+        }
+        return data;
+    }
+
     public static async getBoard(boardId: string) {
         let data;
         try {

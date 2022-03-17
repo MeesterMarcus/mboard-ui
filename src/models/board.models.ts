@@ -11,6 +11,7 @@ export interface IBoardColumn {
 
 export interface ITaskInterface {
     id: number;
+    status: any;
     title: string;
     description: string;
     severity: string;

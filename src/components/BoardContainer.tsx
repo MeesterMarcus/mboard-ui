@@ -11,6 +11,7 @@ import {
 import '../App.css';
 import TaskList from './TaskList';
 import { IBoard } from '../models/board.models';
+import BoardService from '../services/BoardService';
 
 interface IBoardContainerProps {
   board: IBoard
@@ -25,8 +26,11 @@ function BoardContainer(props: IBoardContainerProps) {
     }
   }
 
-  const saveTask = (task) => {
+  const saveTask = async (task) => {
     //we need to do a query to save task updates to db
+    console.log(task);
+    const result = await BoardService.updateTask(task);
+    console.log(result);
   }
 
   return (

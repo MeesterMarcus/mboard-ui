@@ -68,7 +68,7 @@ function App() {
   }
 
   const getBoard = async () => {
-    const result = await BoardService.getBoard('ad4c4f96-8f58-488b-bf0a-f038e05cc3f5');
+    const result = await BoardService.getBoard('08f954ba-f300-4e41-9ef9-24cf52df8732');
     return result.data;
   }
 

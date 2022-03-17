@@ -4,14 +4,18 @@ import { CSSProperties } from "react";
 import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import React from 'react';
-import { 
-  Box, 
-  Button, 
-  Modal, 
-  SxProps, 
-  TextareaAutosize, 
-  TextField, 
-  Typography 
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Modal,
+  Select,
+  SxProps,
+  TextareaAutosize,
+  TextField,
+  Typography
 } from '@mui/material';
 
 //First-party
@@ -42,6 +46,7 @@ function TaskList(props: ITaskListProps) {
       description: '',
       severity: '',
       client: '',
+      status: { columnId: column.id, statusName: column.name }
     };
     BoardService.insertTask(props.board.boardId, column.id, newTask);
     props.boardChanged();
@@ -49,7 +54,8 @@ function TaskList(props: ITaskListProps) {
   }
 
   const openTask = (task) => {
-    console.log(task);
+    console.log(task.status);
+    console.log({columnId: props.column.id, statusName: props.column.name});
     setSelectedTask(task);
     handleOpen();
   };
@@ -70,6 +76,16 @@ function TaskList(props: ITaskListProps) {
       description: text
     }));
   };
+
+  const handleStatusChange = (event) => {
+    const newStatus = event.target.value;
+    const newCol = props.board.columns.find(c => c.id === newStatus);
+    const newColName = newCol.name;
+    setSelectedTask(prevTask => ({
+      ...prevTask,
+      status: {columnId: newStatus, statusName: newColName}
+    }));
+  }
 
   useEffect(() => {
 
@@ -102,27 +118,43 @@ function TaskList(props: ITaskListProps) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {selectedTask.title}
           </Typography>
+          <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label">Status</InputLabel>
+            <Select
+              labelId="demo-simple-select-label"
+              id="demo-simple-select"
+              value={selectedTask.status?.columnId}
+              label="Status"
+              onChange={e => handleStatusChange(e)}
+            >
+              {props.board.columns?.map((column) => {
+                //@ts-ignore
+                return <MenuItem key={column.id} value={column.id}>{column.name}</MenuItem>
+              })}
+
+            </Select>
+          </FormControl>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Description:
           </Typography>
           <div>
-              <TextareaAutosize
-                aria-label="minimum height"
-                minRows={10}
-                value={selectedTask.description}
-                onChange={event => handleDescriptionChange(event)}
-                placeholder="Enter description of task here..."
-                style={{ width: 350 }}
-              />
-            </div>
+            <TextareaAutosize
+              aria-label="minimum height"
+              minRows={10}
+              value={selectedTask.description}
+              onChange={event => handleDescriptionChange(event)}
+              placeholder="Enter description of task here..."
+              style={{ width: 350 }}
+            />
+          </div>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Client:
           </Typography>
           <div>
-              {selectedTask.client}
-            </div>
+            {selectedTask.client}
+          </div>
           <div style={saveTaskContainer}>
-            <Button variant="contained" size="small" onClick={() => props.saveTask({...selectedTask})}>SAVE</Button>
+            <Button variant="contained" size="small" onClick={() => props.saveTask({ ...selectedTask })}>SAVE</Button>
           </div>
         </Box>
       </Modal>
