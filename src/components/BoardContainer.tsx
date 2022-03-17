@@ -26,11 +26,6 @@ function BoardContainer(props: IBoardContainerProps) {
     }
   }
 
-  const saveTask = async (task) => {
-    const result = await BoardService.updateTask(props.board.boardId, task);
-    props.boardChanged();
-  }
-
   return (
     <div style={boardContainer}>
       {props.board?.columns?.map(function (column, index) {
@@ -42,7 +37,7 @@ function BoardContainer(props: IBoardContainerProps) {
                 title={toUpper(column.name)}
               />
               <CardContent style={cardContent}>
-                <TaskList saveTask={saveTask} board={props.board} column={column} boardChanged={props.boardChanged}/>
+                <TaskList board={props.board} column={column} boardChanged={props.boardChanged}/>
               </CardContent>
             </Card>
           </div>

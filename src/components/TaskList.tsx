@@ -26,7 +26,6 @@ import BoardService from '../services/BoardService';
 interface ITaskListProps {
   board: IBoard;
   column: IBoardColumn;
-  saveTask: Function;
   boardChanged: Function;
 }
 
@@ -88,7 +87,8 @@ function TaskList(props: ITaskListProps) {
   }
 
   const saveAndCloseTask = (task) => {
-    props.saveTask(task);
+    BoardService.updateTask(props.board.boardId, task);
+    props.boardChanged();
     handleClose();
   };
 
