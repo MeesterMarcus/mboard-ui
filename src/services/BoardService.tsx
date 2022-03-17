@@ -97,7 +97,7 @@ class BoardService {
         return data;
     }
 
-    public static async updateTask(task: ITaskInterface) {
+    public static async updateTask(boardId: string, task: ITaskInterface) {
         console.log('task:', task);
         let data;
         try {
@@ -109,7 +109,7 @@ class BoardService {
                         Accept: "application/json",
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({task: task}),
+                    body: JSON.stringify({boardId: boardId, task: task}),
                 }
             );
             data = await result.json();

@@ -27,10 +27,8 @@ function BoardContainer(props: IBoardContainerProps) {
   }
 
   const saveTask = async (task) => {
-    //we need to do a query to save task updates to db
-    console.log(task);
-    const result = await BoardService.updateTask(task);
-    console.log(result);
+    const result = await BoardService.updateTask(props.board.boardId, task);
+    props.boardChanged();
   }
 
   return (

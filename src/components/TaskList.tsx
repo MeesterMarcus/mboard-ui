@@ -87,6 +87,11 @@ function TaskList(props: ITaskListProps) {
     }));
   }
 
+  const saveAndCloseTask = (task) => {
+    props.saveTask(task);
+    handleClose();
+  };
+
   useEffect(() => {
 
   }, [props.column])
@@ -154,7 +159,7 @@ function TaskList(props: ITaskListProps) {
             {selectedTask.client}
           </div>
           <div style={saveTaskContainer}>
-            <Button variant="contained" size="small" onClick={() => props.saveTask({ ...selectedTask })}>SAVE</Button>
+            <Button variant="contained" size="small" onClick={() => saveAndCloseTask({ ...selectedTask })}>SAVE</Button>
           </div>
         </Box>
       </Modal>
