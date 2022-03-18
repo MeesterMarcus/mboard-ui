@@ -92,6 +92,14 @@ function TaskList(props: ITaskListProps) {
     handleClose();
   };
 
+  //TODO: add another modal for confirmation
+  const deleteAndCloseTask = (task) => {
+    console.log(task);
+    BoardService.deleteTask(props.board.boardId, task);
+    props.boardChanged();
+    handleClose();
+  }
+
   useEffect(() => {
 
   }, [props.column])
@@ -158,6 +166,10 @@ function TaskList(props: ITaskListProps) {
           <div>
             {selectedTask.client}
           </div>
+          <div style={{marginTop: 10}}>
+            <Button variant="contained" color="error" size="small" onClick={() => deleteAndCloseTask({ ...selectedTask })}>DELETE TASK</Button>
+          </div>
+
           <div style={saveTaskContainer}>
             <Button variant="contained" size="small" onClick={() => saveAndCloseTask({ ...selectedTask })}>SAVE</Button>
           </div>

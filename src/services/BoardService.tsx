@@ -119,6 +119,28 @@ class BoardService {
         return data;
     }
 
+    public static async deleteTask(boardId: string, task: ITaskInterface) {
+        console.log('task:', task);
+        let data;
+        try {
+            const result = await fetch(
+                `${API_URL}/${ENDPOINT.BOARD_TASKS}`,
+                {
+                    method: "DELETE",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({boardId: boardId, task: task}),
+                }
+            );
+            data = await result.json();
+        } catch (error: any) {
+            console.log(error);
+        }
+        return data;
+    }
+
     public static async getBoard(boardId: string) {
         let data;
         try {
