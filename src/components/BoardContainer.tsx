@@ -11,7 +11,6 @@ import {
 import '../App.css';
 import TaskList from './TaskList';
 import { IBoard } from '../models/board.models';
-import BoardService from '../services/BoardService';
 
 interface IBoardContainerProps {
   board: IBoard

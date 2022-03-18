@@ -53,9 +53,11 @@ function App() {
   }, []);
 
   const boardChanged = async () => {
-    console.log('board changed!!!');
-    const updatedBoard = await getBoard();
-    setBoard({...updatedBoard});
+    // sometimes there is a slight delay in mongodb update
+    setTimeout(async function() {
+      const updatedBoard = await getBoard();
+      setBoard(updatedBoard);
+    }, 500);
   }
 
   const initBoard = async () => {
@@ -68,7 +70,7 @@ function App() {
   }
 
   const getBoard = async () => {
-    const result = await BoardService.getBoard('bcb36f6a-4c23-443a-a04a-f8d08b0f2d52');
+    const result = await BoardService.getBoard('1e225cdb-db71-4c17-afb8-1e56478f9315');
     return result.data;
   }
 
