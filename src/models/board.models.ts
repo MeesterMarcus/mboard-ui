@@ -14,6 +14,6 @@ export interface ITaskInterface {
     status: any;
     title: string;
     description: string;
-    severity: string;
+    severity: number;
     client: string;
 }

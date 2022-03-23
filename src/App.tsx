@@ -70,7 +70,7 @@ function App() {
   }
 
   const getBoard = async () => {
-    const result = await BoardService.getBoard('1e225cdb-db71-4c17-afb8-1e56478f9315');
+    const result = await BoardService.getBoard('c7ebf1a2-5204-40ae-b640-81450775b4e3');
     return result.data;
   }
 
@@ -89,7 +89,7 @@ function App() {
               {/* <MenuIcon /> */}
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              MBoards
+              MBoards {board.boardId}
             </Typography>
             <Button color="inherit" onClick={() => console.log('Login clicked')}>Login</Button>
           </Toolbar>

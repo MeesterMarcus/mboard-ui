@@ -43,7 +43,7 @@ function TaskList(props: ITaskListProps) {
       id: uuidv4(),
       title: newTaskTitle,
       description: '',
-      severity: '',
+      severity: 2,
       client: '',
       status: { columnId: column.id, statusName: column.name }
     };
@@ -53,8 +53,7 @@ function TaskList(props: ITaskListProps) {
   }
 
   const openTask = (task) => {
-    console.log(task.status);
-    console.log({columnId: props.column.id, statusName: props.column.name});
+    console.log(task);
     setSelectedTask(task);
     handleOpen();
   };
@@ -76,15 +75,33 @@ function TaskList(props: ITaskListProps) {
     }));
   };
 
+  const handleSeverityChange = event => {
+    const level = parseInt(event.target.value)
+    console.log(level);
+    setSelectedTask(prevTask => ({
+      ...prevTask,
+      severity: level
+    }));
+  };
+
   const handleStatusChange = (event) => {
     const newStatus = event.target.value;
     const newCol = props.board.columns.find(c => c.id === newStatus);
     const newColName = newCol.name;
     setSelectedTask(prevTask => ({
       ...prevTask,
-      status: {columnId: newStatus, statusName: newColName}
+      status: { columnId: newStatus, statusName: newColName }
     }));
   }
+
+  const handleClientChange = event => {
+    const text = event.target.value
+    console.log(text);
+    setSelectedTask(prevTask => ({
+      ...prevTask,
+      client: text
+    }));
+  };
 
   const saveAndCloseTask = (task) => {
     BoardService.updateTask(props.board.boardId, task);
@@ -131,22 +148,45 @@ function TaskList(props: ITaskListProps) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             {selectedTask.title}
           </Typography>
-          <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label">Status</InputLabel>
-            <Select
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={selectedTask.status?.columnId}
-              label="Status"
-              onChange={e => handleStatusChange(e)}
-            >
-              {props.board.columns?.map((column) => {
-                //@ts-ignore
-                return <MenuItem key={column.id} value={column.id}>{column.name}</MenuItem>
-              })}
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+            <div>
+              <FormControl margin='normal' >
+                <InputLabel id="status-select-label">Status</InputLabel>
+                <Select
+                  style={{ minWidth: 110 }}
+                  labelId="status-select"
+                  id="status-select"
+                  value={selectedTask.status?.columnId}
+                  label="Status"
+                  onChange={e => handleStatusChange(e)}
+                >
+                  {props.board.columns?.map((column) => {
+                    //@ts-ignore
+                    return <MenuItem key={column.id} value={column.id}>{column.name}</MenuItem>
+                  })}
 
-            </Select>
-          </FormControl>
+                </Select>
+              </FormControl>
+            </div>
+            <div style={{ marginLeft: 35 }}>
+              <FormControl margin='normal'>
+                <InputLabel id="severity-select-label">Severity</InputLabel>
+                <Select
+                  style={{ minWidth: 110 }}
+                  labelId="severity-select"
+                  id="severity-select"
+                  value={selectedTask.severity}
+                  label="Severity"
+                  onChange={e => handleSeverityChange(e)}
+                >
+                  <MenuItem value={1}>Low</MenuItem>
+                  <MenuItem value={2}>Medium</MenuItem>
+                  <MenuItem value={3}>High</MenuItem>
+                  <MenuItem value={4}>Urgent</MenuItem>
+                </Select>
+              </FormControl>
+            </div>
+          </div>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             Description:
           </Typography>
@@ -160,13 +200,12 @@ function TaskList(props: ITaskListProps) {
               style={{ width: 350 }}
             />
           </div>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Client:
-          </Typography>
           <div>
-            {selectedTask.client}
+            <FormControl margin='normal'>
+              <TextField id="outlined-basic" value={selectedTask.client} onChange={e => handleClientChange(e)} label="Client" variant="outlined" />
+            </FormControl>
           </div>
-          <div style={{marginTop: 10}}>
+          <div style={{ marginTop: 10 }}>
             <Button variant="contained" color="error" size="small" onClick={() => deleteAndCloseTask({ ...selectedTask })}>DELETE TASK</Button>
           </div>
 
@@ -217,7 +256,7 @@ const modalStyle: SxProps = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: 350,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
