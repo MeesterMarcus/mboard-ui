@@ -103,6 +103,15 @@ function TaskList(props: ITaskListProps) {
     }));
   };
 
+  const handleTitleChange = event => {
+    const text = event.target.value
+    console.log(text);
+    setSelectedTask(prevTask => ({
+      ...prevTask,
+      title: text
+    }));
+  };
+
   const saveAndCloseTask = (task) => {
     BoardService.updateTask(props.board.boardId, task);
     props.boardChanged();
@@ -145,15 +154,17 @@ function TaskList(props: ITaskListProps) {
         aria-describedby="modal-modal-description"
       >
         <Box sx={modalStyle}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            {selectedTask.title}
-          </Typography>
-          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+        <div>
+            <FormControl margin='normal' fullWidth>
+              <TextField id="outlined-basic" value={selectedTask.title} onChange={e => handleTitleChange(e)} label="Title"  variant="outlined" />
+            </FormControl>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <div>
               <FormControl margin='normal' >
                 <InputLabel id="status-select-label">Status</InputLabel>
                 <Select
-                  style={{ minWidth: 110 }}
+                  style={{ minWidth: 150 }}
                   labelId="status-select"
                   id="status-select"
                   value={selectedTask.status?.columnId}
@@ -172,7 +183,7 @@ function TaskList(props: ITaskListProps) {
               <FormControl margin='normal'>
                 <InputLabel id="severity-select-label">Severity</InputLabel>
                 <Select
-                  style={{ minWidth: 110 }}
+                  style={{ minWidth: 115 }}
                   labelId="severity-select"
                   id="severity-select"
                   value={selectedTask.severity}

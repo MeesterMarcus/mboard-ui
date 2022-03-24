@@ -4,15 +4,17 @@ import { CSSProperties } from "react";
 import React, { useEffect, useState } from 'react';
 import BoardContainer from './components/BoardContainer';
 import { v4 as uuidv4 } from 'uuid';
-import { 
-  Box, 
-  AppBar, 
-  Toolbar, 
-  IconButton, 
-  Typography, 
-  Button, 
-  TextField } 
+import {
+  Box,
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Button,
+  TextField
+}
   from '@mui/material';
+import RefreshIcon from '@mui/icons-material/Refresh';
 
 //First-party
 import { IBoard, IBoardColumn } from './models/board.models';
@@ -54,7 +56,8 @@ function App() {
 
   const boardChanged = async () => {
     // sometimes there is a slight delay in mongodb update
-    setTimeout(async function() {
+    console.log('refreshing...');
+    setTimeout(async function () {
       const updatedBoard = await getBoard();
       setBoard(updatedBoard);
     }, 500);
@@ -70,7 +73,7 @@ function App() {
   }
 
   const getBoard = async () => {
-    const result = await BoardService.getBoard('c7ebf1a2-5204-40ae-b640-81450775b4e3');
+    const result = await BoardService.getBoard('0eac9690-50f7-42d3-a13f-26522c3ae07f');
     return result.data;
   }
 
@@ -96,10 +99,11 @@ function App() {
         </AppBar>
       </Box>
       <div style={columnInputContainer}>
-        <TextField sx={{input: {color: 'white'}}} id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
+        <TextField sx={{ input: { color: 'white' } }} id="outlined-basic" value={newColumnName} onChange={e => handleText(e)} label="Your column name" variant="outlined" />
         <Button disabled={!newColumnName} style={buttonContainer} variant="contained" onClick={addColumn}>Add Column</Button>
+        <Button style={refreshButton} variant="contained" onClick={boardChanged}><RefreshIcon /></Button>
       </div>
-      <BoardContainer board={board} boardChanged={boardChanged}/>
+      <BoardContainer board={board} boardChanged={boardChanged} />
     </div>
   );
 }
@@ -109,6 +113,13 @@ function App() {
 const buttonContainer: CSSProperties = {
   marginLeft: 8,
   padding: 15,
+}
+
+const refreshButton: CSSProperties = {
+  marginLeft: 8,
+  padding: 15,
+  color: 'black',
+  backgroundColor: 'lightgrey',
 }
 
 const columnInputContainer: CSSProperties = {
