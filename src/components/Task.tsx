@@ -1,7 +1,6 @@
 //Third-party
 import { useEffect } from 'react';
 import { CSSProperties } from "react";
-import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import React from 'react';
 import {
@@ -188,31 +187,6 @@ function Task(props: ITaskProps) {
 }
 
 // styles
-const taskListContainer: CSSProperties = {
-  margin: 15,
-  backgroundColor: '#EBECF0',
-}
-
-const taskContainer: CSSProperties = {
-  textAlign: 'left',
-  borderWidth: 2,
-  borderRadius: 5,
-  borderStyle: 'solid',
-  borderColor: '#EBECF0',
-  backgroundColor: 'white',
-  cursor: 'pointer',
-  margin: 5,
-  padding: 15,
-}
-
-const taskInputContainer: CSSProperties = {
-  marginTop: 20,
-}
-
-const addTaskContainer: CSSProperties = {
-  marginTop: 25,
-}
-
 const saveTaskContainer: CSSProperties = {
   marginTop: 25,
   display: 'flex',
